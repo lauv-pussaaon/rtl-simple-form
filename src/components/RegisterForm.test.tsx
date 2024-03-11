@@ -1,16 +1,29 @@
-import { screen, render, cleanup, fireEvent } from "@testing-library/react";
+import {
+    screen,
+    render,
+    cleanup,
+    fireEvent,
+    act,
+} from "@testing-library/react";
 import RegisterForm from "./RegisterForm";
-import RegisterService from "../services/RegisterService";
 import userEvent from "@testing-library/user-event";
 
 describe("RegisterForm", () => {
+    const registerFnMock = jest.fn();
+    const registerServiceMock = {
+        register: registerFnMock,
+    };
+
     beforeEach(() => {
-        const registerService = new RegisterService();
-        render(<RegisterForm registerService={registerService} />);
+        render(<RegisterForm registerService={registerServiceMock} />);
     });
 
     afterEach(() => {
         cleanup();
+    });
+
+    afterAll(() => {
+        jest.clearAllMocks();
     });
 
     it("should display initial form correctly", () => {
@@ -56,7 +69,7 @@ describe("RegisterForm", () => {
         });
     });
 
-    it.only("should display error message for invalid email", async () => {
+    it("should display error message for invalid email", async () => {
         fireEvent.change(screen.getByRole("input-email"), {
             target: { value: "wrongemail#@.com" },
         });
@@ -64,5 +77,35 @@ describe("RegisterForm", () => {
 
         const message = await screen.findByText("Invalid email");
         expect(message).toBeInTheDocument();
+    });
+
+    it.only("should register successfully with valid inputs", async () => {
+        const mockRegister = {
+            firstName: "Jane",
+            lastName: "Doe",
+            email: "janedone@gmail.com",
+        };
+        registerFnMock.mockResolvedValueOnce(mockRegister);
+
+        await act(async () => {
+            fireEvent.change(screen.getByRole("input-firstName"), {
+                target: { value: mockRegister.firstName },
+            });
+            fireEvent.change(screen.getByRole("input-lastName"), {
+                target: { value: mockRegister.lastName },
+            });
+            fireEvent.change(screen.getByRole("input-email"), {
+                target: { value: mockRegister.email },
+            });
+            fireEvent.click(screen.getByRole("register-button"));
+        });
+
+        expect(registerFnMock).toHaveBeenCalledTimes(1);
+        expect(registerFnMock).toHaveBeenCalledWith(mockRegister);
+
+        const successMessage = await screen.findByText(
+            /Registered Successfully/
+        );
+        expect(successMessage).toBeInTheDocument();
     });
 });
