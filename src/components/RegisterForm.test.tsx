@@ -79,7 +79,7 @@ describe("RegisterForm", () => {
         expect(message).toBeInTheDocument();
     });
 
-    it.only("should register successfully with valid inputs", async () => {
+    it("should register successfully with valid inputs", async () => {
         const mockRegister = {
             firstName: "Jane",
             lastName: "Doe",
