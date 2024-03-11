@@ -1,0 +1,23 @@
+.form {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 1rem;
+}
+
+.form-row {
+	display: flex;
+	gap: 1rem;
+}
+
+.btn-register {
+	width: auto;
+	padding: 0.5rem 1rem;
+	border-radius: 10px;
+	background-color: #fbc02d;
+}
+
+.input-error {
+	color: red;
+	margin-left: 1rem;
+}
