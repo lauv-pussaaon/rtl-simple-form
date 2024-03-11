@@ -5,12 +5,20 @@ import RegisterService from "../services/RegisterService";
 describe("RegisterForm", () => {
     it("should display initial form correctly", () => {
         const registerService = new RegisterService();
-
         render(<RegisterForm registerService={registerService} />);
-        const inputFirstName = screen.getByRole(
-            "input-firstName"
-        ) as HTMLInputElement;
-        expect(inputFirstName).toBeInTheDocument();
-        expect(inputFirstName.value).toBe("");
+
+        const rolesInTest = [
+            "input-firstName",
+            "input-lastName",
+            "input-email",
+        ];
+        rolesInTest.forEach((role) => {
+            const input = screen.getByRole(role) as HTMLInputElement;
+            expect(input).toBeInTheDocument();
+            expect(input.value).toBe("");
+        });
+
+        const btnSubmit = screen.getByRole("register-button");
+        expect(btnSubmit.textContent).toBe("Register");
     });
 });
