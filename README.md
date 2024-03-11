@@ -1,30 +1,26 @@
-# React + TypeScript + Vite
+# Automated Testing for React Components: A Comprehensive Guide
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository accompanies my article on implementing robust automated testing practices for your React components. If you want to improve code quality and ensure the reliability of your React applications, you're in the right place!
 
-Currently, two official plugins are available:
+## Objective
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-   Provide a clear, step-by-step explanation on writing effective automated tests for React components.
+-   Showcase recommended practices using Jest, React Testing Library (RTL), and react-hook-form within a TypeScript environment.
 
-## Expanding the ESLint configuration
+## Tools
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+-   Jest: Powerful and adaptable testing framework.
+-   React Testing Library (RTL): Promotes testing from a user's perspective, enhancing the resilience of your tests.
+-   react-hook-form: Simplifies form creation and validation, providing practical testing examples.
+-   TypeScript: Improves code quality and maintainability through type-safety in both components and tests.
 
-- Configure the top-level `parserOptions` property like this:
+# The Article
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+https://www.growcrews.com/automated-testing-react/
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+# Getting Started
+
+1. Clone the repository
+2. Install dependencies: npm install
+3. Refer to the article for a thorough walkthrough and explanations of the included examples.
+4. Run tests: npm test or jest
