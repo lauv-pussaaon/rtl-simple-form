@@ -1,4 +1,4 @@
-import { screen, render, cleanup } from "@testing-library/react";
+import { screen, render, cleanup, fireEvent } from "@testing-library/react";
 import RegisterForm from "./RegisterForm";
 import RegisterService from "../services/RegisterService";
 import userEvent from "@testing-library/user-event";
@@ -29,7 +29,7 @@ describe("RegisterForm", () => {
         expect(btnSubmit.textContent).toBe("Register");
     });
 
-    it.only("should display error messages for missing inputs", async () => {
+    it("should display error messages for missing inputs", async () => {
         const messageRoles = [
             "error-firstName",
             "error-lastName",
@@ -54,5 +54,15 @@ describe("RegisterForm", () => {
             expect(message).toBeInTheDocument();
             expect(message.textContent).toBe(messageErrors[index]);
         });
+    });
+
+    it.only("should display error message for invalid email", async () => {
+        fireEvent.change(screen.getByRole("input-email"), {
+            target: { value: "wrongemail#@.com" },
+        });
+        fireEvent.click(screen.getByRole("register-button"));
+
+        const message = await screen.findByText("Invalid email");
+        expect(message).toBeInTheDocument();
     });
 });
